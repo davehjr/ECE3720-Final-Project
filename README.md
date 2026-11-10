@@ -89,3 +89,29 @@ https://www.ti.com/lit/ds/symlink/txs0108e.pdf?ts=1794207939823
 - how to use a Logic Level Shifter
 https://youtu.be/f7aySy_0URE
 
+### UART Receive and Traffic Logic (Anthony Putrus)
+
+Receive and decode the camera byte from the Pi over UART and run the traffic light state machine. The side street is green after waiting long enough for the number of cars detected. Also, an emergency vehicle forces all red. If the Pi goes quiet for 500ms, the controller falls back to plain fixed timing. 
+
+### Status 
+pi_link,c: loosely written but not yet tested
+traffic.c: foundational code, written, tested, not yet implemented with Mario's cars and David's camera
+
+### Data Format
+C1 C0 T5 T4 _ T3 T2 T1 T0
+C1-C0 = how many cars waiting on side street?
+T5 - T0 = how many seconds since first car was detected? (0-63)
+Planned Emergency byte: C = 0, T = 0x3F = 0011_1111 
+
+### Light Logic
+Side street gets a green when wait time reaches a threshold for its car count ex: 1 car  = 45 sec, 2 = 30 sec, 3 = 15 sec (placeholder data)
+Side green will last about 5s - 15s, will end earlier if Pi reports no cars waiting
+Sequence: Main Green -> Main Yellow -> Main/All Red -> Side Green -> Side Yellow -> All Red -> (Repeat)
+Emergency Vehicles: Trigger all red till it clears, then start backup to Main green
+
+### References
+- EVBplus, Dragon12-Plus Trainer User's Manual: pin assignments, jumpers, PLL
+  template (all files)
+- Claude (Anthropic) - TO BE UPLOADED WHEN DONE WITH PART
+- - ECE 3720 lecture slides, "HCS12 Serial Communication Interface (SCI) Programming
+  in Assembly and C," Prof. Shadi G. Alawneh, Oakland University
