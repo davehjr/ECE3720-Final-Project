@@ -113,5 +113,5 @@ Emergency Vehicles: Trigger all red till it clears, then start backup to Main gr
 - EVBplus, Dragon12-Plus Trainer User's Manual: pin assignments, jumpers, PLL
   template (all files)
 - Claude (Anthropic) - TO BE UPLOADED WHEN DONE WITH PART
-- - ECE 3720 lecture slides, "HCS12 Serial Communication Interface (SCI) Programming
+- ECE 3720 lecture slides, "HCS12 Serial Communication Interface (SCI) Programming
   in Assembly and C," Prof. Shadi G. Alawneh, Oakland University
